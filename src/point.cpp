@@ -27,8 +27,7 @@ Point::Point()
 
     , m_id(UNASSIGNED)
     , m_cluster(UNCLASSIFIED)
-    , m_distance(0, __DBL_MAX__)
-{
+    , m_distance(0, __DBL_MAX__) {
 }
 
 Point::Point(float t_x, float t_y, float t_z)
@@ -38,8 +37,7 @@ Point::Point(float t_x, float t_y, float t_z)
 
     , m_id(UNASSIGNED)
     , m_cluster(UNCLASSIFIED)
-    , m_distance(0, __DBL_MAX__)
-{
+    , m_distance(0, __DBL_MAX__) {
 }
 
 float Point::distance(Point point) const
