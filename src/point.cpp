@@ -7,7 +7,7 @@ extern const int UNCLASSIFIED = -1;
 // extern const int X = 0;   //  x_i = {x_1, x_2, ... x_m}
 // extern const int Y = 1;   //  y_i = {y_1, y_2, ... y_m}
 // extern const int Z = 2;   //  z_i = {z_1, z_2, ... z_m}
-extern const int R = 3;   // dimensional space
+extern const int R = 3; // dimensional space
 
 bool compare(const Point& t_point, const Point& t_other)
 {
@@ -27,7 +27,8 @@ Point::Point()
 
     , m_id(UNASSIGNED)
     , m_cluster(UNCLASSIFIED)
-    , m_distance(0, __DBL_MAX__) {
+    , m_distance(0, __DBL_MAX__)
+{
 }
 
 Point::Point(float t_x, float t_y, float t_z)
@@ -37,7 +38,8 @@ Point::Point(float t_x, float t_y, float t_z)
 
     , m_id(UNASSIGNED)
     , m_cluster(UNCLASSIFIED)
-    , m_distance(0, __DBL_MAX__) {
+    , m_distance(0, __DBL_MAX__)
+{
 }
 
 float Point::distance(Point point) const
@@ -69,6 +71,16 @@ Point Point::centroid(std::vector<Point>& t_points)
 bool Point::operator==(const Point& rhs) const
 {
     return (m_x == rhs.m_x && m_y == rhs.m_y && m_z == rhs.m_z);
+}
+
+bool Point::operator!=(const Point& rhs) const
+{
+    return (m_x != rhs.m_x || m_y != rhs.m_y || m_z != rhs.m_z);
+}
+
+bool Point::operator<(const Point& rhs) const
+{
+    return (this->m_distance.second < rhs.m_distance.second);
 }
 
 std::ostream& operator<<(std::ostream& t_stream, const Point& point)
