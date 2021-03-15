@@ -7,16 +7,13 @@
 #include <utility>
 #include <vector>
 
-/**
- * A point may not belong to any cluster.
- * For such cases we deem the point to be
- * Either noise, or unclassified. */
+/** Global variables */
 extern const int NOISE;
-extern const int UNCLASSIFIED;
+extern const int UNDEFINED;
 
-// extern const int X; // vector column with x values
-// extern const int Y; // vector column with y values
-// extern const int Z; // vector column with Z values
+extern const int xCol; // vector column with x values
+extern const int yCol; // vector column with y values
+extern const int zCol; // vector column with Z values
 extern const int R; // dimensions
 
 /** todo: optimize data structure for color manipulation
@@ -43,27 +40,12 @@ public:
 
     std::pair<int, float> m_distance;
 
+    bool undefined() const;
+
     float distance(Point point) const;
 
     static Point centroid(std::vector<Point>& t_points);
 
     static void sort(std::vector<Point>& points);
 };
-
 #endif /* POINT_H */
-
-/**
- * virtual functions
- * see:
- * https://www.geeksforgeeks.org/virtual-function-cpp/
- * date: 2020-12-10 17:11
- */
-
-/**
- * polymorphism
- * see:
- * https://stackoverflow.com/questions/7405740/how-can-i-initialize-base-class-member-variables-in-derived-class-constructor
- * see:
- * https://www.ibm.com/support/knowledgecenter/SSLTBW_2.2.0/com.ibm.zos.v2r2.cbclx01/cplr388.htm
- * date: 2020-12-10 17:34
- */
