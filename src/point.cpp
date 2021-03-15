@@ -2,11 +2,11 @@
 
 extern const int NOISE = -2;
 extern const int UNASSIGNED = -1;
-extern const int UNCLASSIFIED = -1;
+extern const int UNDEFINED = -1;
 
-// extern const int X = 0;   //  x_i = {x_1, x_2, ... x_m}
-// extern const int Y = 1;   //  y_i = {y_1, y_2, ... y_m}
-// extern const int Z = 2;   //  z_i = {z_1, z_2, ... z_m}
+extern const int xCol = 0;   //  x_i = {x_1, x_2, ... x_m}
+extern const int yCol = 1;   //  y_i = {y_1, y_2, ... y_m}
+extern const int zCol = 2;   //  z_i = {z_1, z_2, ... z_m}
 extern const int R = 3; // dimensional space
 
 bool compare(const Point& t_point, const Point& t_other)
@@ -26,7 +26,7 @@ Point::Point()
     , m_z(0.0)
 
     , m_id(UNASSIGNED)
-    , m_cluster(UNCLASSIFIED)
+    , m_cluster(UNDEFINED)
     , m_distance(0, __DBL_MAX__)
 {
 }
@@ -37,9 +37,14 @@ Point::Point(float t_x, float t_y, float t_z)
     , m_z(t_z)
 
     , m_id(UNASSIGNED)
-    , m_cluster(UNCLASSIFIED)
+    , m_cluster(UNDEFINED)
     , m_distance(0, __DBL_MAX__)
 {
+}
+
+bool Point::undefined() const
+{
+    return (m_cluster == UNDEFINED || m_cluster == NOISE);
 }
 
 float Point::distance(Point point) const
