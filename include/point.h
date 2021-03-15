@@ -25,6 +25,8 @@ extern const int R; // dimensions
 class Point {
 
 public:
+    bool operator<(const Point& rhs) const;
+    bool operator!=(const Point& rhs) const;
     bool operator==(const Point& rhs) const;
     friend std::ostream& operator<<(std::ostream& t_stream, const Point& point);
     friend std::istream& operator>>(std::istream& t_stream, Point& point);
