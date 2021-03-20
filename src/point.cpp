@@ -4,10 +4,10 @@ extern const int NOISE = -2;
 extern const int UNASSIGNED = -1;
 extern const int UNDEFINED = -1;
 
-extern const int xCol = 0;   //  x_i = {x_1, x_2, ... x_m}
-extern const int yCol = 1;   //  y_i = {y_1, y_2, ... y_m}
-extern const int zCol = 2;   //  z_i = {z_1, z_2, ... z_m}
-extern const int R = 3; // dimensional space
+extern const int xCol = 0; //  x_i = {x_1, x_2, ... x_m}
+extern const int yCol = 1; //  y_i = {y_1, y_2, ... y_m}
+extern const int zCol = 2; //  z_i = {z_1, z_2, ... z_m}
+extern const int R = 3;    // dimensional space
 
 bool compare(const Point& t_point, const Point& t_other)
 {
