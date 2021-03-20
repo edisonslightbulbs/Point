@@ -14,7 +14,7 @@ extern const int UNDEFINED;
 extern const int xCol; // vector column with x values
 extern const int yCol; // vector column with y values
 extern const int zCol; // vector column with Z values
-extern const int R; // dimensions
+extern const int R;    // dimensions
 
 /** todo: optimize data structure for color manipulation
  * Bit values for colors*/
