@@ -1,36 +1,45 @@
 #ifndef AXIS_H
 #define AXIS_H
 
-#include <algorithm>
-#include <vector>
-
 #include "point.h"
 
 namespace axis {
 
-static void sortX(std::vector<Point>& points)
-{
-    std::sort(points.begin(), points.end(),
-        [](const Point& point, const Point& other) {
-            return point.m_x < other.m_x;
-        });
-}
+/**
+ * sortX
+ *   Sorts a vector of points based on x-axis values.
+ *
+ * @param points
+ *   Vector of 3D points.
+ *
+ * @retval
+ *    Return a x-sorted vector of points.
+ */
+static void sortX(std::vector<Point>& points);
 
-static void sortY(std::vector<Point>& points)
-{
-    std::sort(points.begin(), points.end(),
-        [](const Point& point, const Point& other) {
-            return point.m_y < other.m_y;
-        });
-}
+/**
+ * sortY
+ *   Sorts a vector of points based on y-axis values.
+ *
+ * @param points
+ *   Vector of 3D points.
+ *
+ * @retval
+ *    Return a y-sorted vector of points.
+ */
+static void sortY(std::vector<Point>& points);
 
-static void sortZ(std::vector<Point>& points)
-{
-    std::sort(points.begin(), points.end(),
-        [](const Point& point, const Point& other) {
-            return point.m_z < other.m_z;
-        });
-}
+/**
+ * sortZ
+ *   Sorts a vector of points based on z-axis values.
+ *
+ * @param points
+ *   Vector of 3D points.
+ *
+ * @retval
+ *    Return a z-sorted vector of points.
+ */
+static void sortZ(std::vector<Point>& points);
 
 }
 #endif /* AXIS_H */
