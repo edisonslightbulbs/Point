@@ -15,7 +15,7 @@ namespace axis {
  * @retval
  *    Return a x-sorted vector of points.
  */
-static void sortX(std::vector<Point>& points);
+void sortX(std::vector<Point>& points);
 
 /**
  * sortY
@@ -27,7 +27,7 @@ static void sortX(std::vector<Point>& points);
  * @retval
  *    Return a y-sorted vector of points.
  */
-static void sortY(std::vector<Point>& points);
+void sortY(std::vector<Point>& points);
 
 /**
  * sortZ
@@ -39,7 +39,7 @@ static void sortY(std::vector<Point>& points);
  * @retval
  *    Return a z-sorted vector of points.
  */
-static void sortZ(std::vector<Point>& points);
+void sortZ(std::vector<Point>& points);
 
 }
 #endif /* AXIS_H */
