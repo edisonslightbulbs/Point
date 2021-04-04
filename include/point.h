@@ -36,7 +36,7 @@ public:
     float m_z;
 
     Point();
-    Point(float t_x, float t_y, float t_z);
+    Point(float x, float y, float z);
 
     std::pair<int, float> m_distance;
 
@@ -44,7 +44,7 @@ public:
 
     float distance(Point point) const;
 
-    static Point centroid(std::vector<Point>& t_points);
+    static Point centroid(std::vector<Point>& points);
 
     static void sort(std::vector<Point>& points);
 };
