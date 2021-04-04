@@ -9,9 +9,9 @@ extern const int yCol = 1; //  y_i = {y_1, y_2, ... y_m}
 extern const int zCol = 2; //  z_i = {z_1, z_2, ... z_m}
 extern const int R = 3;    // dimensional space
 
-bool compare(const Point& t_point, const Point& t_other)
+bool compare(const Point& point, const Point& other)
 {
-    return t_point.m_distance.second < t_other.m_distance.second;
+    return point.m_distance.second < other.m_distance.second;
 }
 
 void Point::sort(std::vector<Point>& points)
@@ -31,10 +31,10 @@ Point::Point()
 {
 }
 
-Point::Point(float t_x, float t_y, float t_z)
-    : m_x(t_x)
-    , m_y(t_y)
-    , m_z(t_z)
+Point::Point(float x, float y, float z)
+    : m_x(x)
+    , m_y(y)
+    , m_z(z)
 
     , m_id(UNASSIGNED)
     , m_cluster(UNDEFINED)
@@ -55,22 +55,19 @@ float Point::distance(Point point) const
     return (float)std::sqrt((x * x) + (y * y) + (z * z));
 }
 
-Point Point::centroid(std::vector<Point>& t_points)
+Point Point::centroid(std::vector<Point>& points)
 {
-    /** vec as mat */
-    int cols = 3;
-    Eigen::MatrixXd pointsMat(t_points.size(), cols);
+    Eigen::MatrixXd pointsMat(points.size(), R);
 
     int row = 0;
-    for (auto point : t_points) {
-        pointsMat(row, 0) = point.m_x;
-        pointsMat(row, 1) = point.m_y;
-        pointsMat(row, 2) = point.m_z;
+    for (auto point : points) {
+        pointsMat(row, xCol) = point.m_x;
+        pointsMat(row, yCol) = point.m_y;
+        pointsMat(row, zCol) = point.m_z;
         row++;
     }
-
-    return Point { (float)pointsMat.col(0).mean(),
-        (float)pointsMat.col(1).mean(), (float)pointsMat.col(2).mean() };
+    return Point { (float)pointsMat.col(xCol).mean(),
+        (float)pointsMat.col(yCol).mean(), (float)pointsMat.col(zCol).mean() };
 }
 
 bool Point::operator==(const Point& rhs) const
@@ -88,14 +85,14 @@ bool Point::operator<(const Point& rhs) const
     return (this->m_distance.second < rhs.m_distance.second);
 }
 
-std::ostream& operator<<(std::ostream& t_stream, const Point& point)
+std::ostream& operator<<(std::ostream& stream, const Point& point)
 {
-    t_stream << point.m_x << " " << point.m_y << " " << point.m_z;
-    return t_stream;
+    stream << point.m_x << " " << point.m_y << " " << point.m_z;
+    return stream;
 }
 
-std::istream& operator>>(std::istream& t_stream, Point& point)
+std::istream& operator>>(std::istream& stream, Point& point)
 {
-    t_stream >> point.m_x >> point.m_y >> point.m_z;
-    return t_stream;
+    stream >> point.m_x >> point.m_y >> point.m_z;
+    return stream;
 }
