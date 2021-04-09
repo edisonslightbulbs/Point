@@ -35,6 +35,8 @@ public:
     float m_y;
     float m_z;
 
+    std::vector<float> m_rgb;
+
     Point();
     Point(float x, float y, float z);
 
@@ -47,5 +49,7 @@ public:
     static Point centroid(std::vector<Point>& points);
 
     static void sort(std::vector<Point>& points);
+
+    void setRgb(const std::vector<float>& rgb);
 };
 #endif /* POINT_H */
