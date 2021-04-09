@@ -29,6 +29,7 @@ Point::Point()
     , m_cluster(UNDEFINED)
     , m_distance(0, __DBL_MAX__)
 {
+    m_rgb = std::vector<float>(3);
 }
 
 Point::Point(float x, float y, float z)
@@ -40,6 +41,14 @@ Point::Point(float x, float y, float z)
     , m_cluster(UNDEFINED)
     , m_distance(0, __DBL_MAX__)
 {
+    m_rgb = std::vector<float>(3);
+}
+
+void Point::setRgb(const std::vector<float>& rgb)
+{
+    for (int i = 0; i < rgb.size(); i++) {
+        m_rgb[i] = rgb[i];
+    }
 }
 
 bool Point::undefined() const
