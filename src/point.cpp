@@ -52,19 +52,19 @@ float Point::distance(const Point& other) const
     return (float)std::sqrt((x * x) + (y * y) + (z * z));
 }
 
+// TODO: quick test
 Point Point::centroid(std::vector<Point>& points)
 {
-    Eigen::MatrixXd pointsMat(points.size(), R);
-
-    int row = 0;
+    float xSum = 0;
+    float ySum = 0;
+    float zSum = 0;
     for (const auto& point : points) {
-        pointsMat(row, xCol) = point.m_xyz[0];
-        pointsMat(row, yCol) = point.m_xyz[1];
-        pointsMat(row, zCol) = point.m_xyz[2];
-        row++;
+        xSum = xSum + point.m_xyz[0];
+        ySum = ySum + point.m_xyz[1];
+        zSum = zSum + point.m_xyz[2];
     }
-    return Point { (float)pointsMat.col(xCol).mean(),
-        (float)pointsMat.col(yCol).mean(), (float)pointsMat.col(zCol).mean() };
+    return Point { xSum / points.size(), ySum / points.size(),
+        zSum / points.size() };
 }
 
 bool Point::unlabeled() const
