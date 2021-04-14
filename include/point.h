@@ -7,17 +7,13 @@
 #include <utility>
 #include <vector>
 
-/** Global variables */
+extern const int R;    // <- dimensional space
+extern const int xCol; // x column
+extern const int yCol; // y column
+extern const int zCol; // z column
+
 extern const int NOISE;
-extern const int UNDEFINED;
-
-extern const int xCol; // vector column with x values
-extern const int yCol; // vector column with y values
-extern const int zCol; // vector column with Z values
-extern const int R;    // dimensions
-
-/** todo: optimize data structure for color manipulation
- * Bit values for colors*/
+extern const int UNLABELED;
 
 class Point {
 
@@ -28,28 +24,26 @@ public:
     friend std::ostream& operator<<(std::ostream& t_stream, const Point& point);
     friend std::istream& operator>>(std::istream& t_stream, Point& point);
 
-    int m_id;
+    std::array<int, 3> m_rgb {};
+    std::array<float, 3> m_xyz {};
+
     int m_cluster;
+    std::string m_clusterColor;
 
-    float m_x;
-    float m_y;
-    float m_z;
-
-    std::vector<float> m_rgb;
+    std::pair<Point*, float> m_distance;
 
     Point();
+
     Point(float x, float y, float z);
 
-    std::pair<int, float> m_distance;
-
-    bool undefined() const;
-
-    float distance(Point point) const;
-
-    static Point centroid(std::vector<Point>& points);
+    [[nodiscard]] bool unlabeled() const;
 
     static void sort(std::vector<Point>& points);
 
-    void setRgb(const std::vector<float>& rgb);
+    void setColor(const std::vector<float>& rgb);
+
+    static Point centroid(std::vector<Point>& points);
+
+    [[nodiscard]] float distance(const Point& other) const;
 };
 #endif /* POINT_H */
