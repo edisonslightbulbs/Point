@@ -7,7 +7,7 @@ void axis::sortX(std::vector<Point>& points)
 {
     std::sort(points.begin(), points.end(),
         [](const Point& point, const Point& other) {
-            return point.m_x < other.m_x;
+            return point.m_xyz[0] < other.m_xyz[0];
         });
 }
 
@@ -15,7 +15,7 @@ void axis::sortY(std::vector<Point>& points)
 {
     std::sort(points.begin(), points.end(),
         [](const Point& point, const Point& other) {
-            return point.m_y < other.m_y;
+            return point.m_xyz[1] < other.m_xyz[1];
         });
 }
 
@@ -23,6 +23,6 @@ void axis::sortZ(std::vector<Point>& points)
 {
     std::sort(points.begin(), points.end(),
         [](const Point& point, const Point& other) {
-            return point.m_z < other.m_z;
+            return point.m_xyz[2] < other.m_xyz[2];
         });
 }
