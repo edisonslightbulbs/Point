@@ -1,13 +1,12 @@
 #include "point.h"
 
 extern const int NOISE = -2;
-extern const int UNASSIGNED = -1;
-extern const int UNDEFINED = -1;
+extern const int UNLABELED = -1;
 
-extern const int xCol = 0; //  x_i = {x_1, x_2, ... x_m}
-extern const int yCol = 1; //  y_i = {y_1, y_2, ... y_m}
-extern const int zCol = 2; //  z_i = {z_1, z_2, ... z_m}
-extern const int R = 3;    // dimensional space
+extern const int R = 3;
+extern const int xCol = 0;
+extern const int yCol = 1;
+extern const int zCol = 2;
 
 bool compare(const Point& point, const Point& other)
 {
@@ -16,51 +15,40 @@ bool compare(const Point& point, const Point& other)
 
 void Point::sort(std::vector<Point>& points)
 {
-    /** sort points using m_distance.second (i.e., euclidean distance) */
     std::sort(points.begin(), points.end(), compare);
 }
 
 Point::Point()
-    : m_x(0.0)
-    , m_y(0.0)
-    , m_z(0.0)
-
-    , m_id(UNASSIGNED)
-    , m_cluster(UNDEFINED)
-    , m_distance(0, __DBL_MAX__)
+    : m_xyz({ 0.0, 0.0, 0.0 })
+    , m_cluster(UNLABELED)
+    , m_distance(nullptr, __DBL_MAX__)
 {
-    m_rgb = std::vector<float>(3);
+    m_clusterColor = " 0 0 0";
+    m_rgb = { 0, 0, 0 };
 }
 
 Point::Point(float x, float y, float z)
-    : m_x(x)
-    , m_y(y)
-    , m_z(z)
+    : m_xyz({ x, y, z })
 
-    , m_id(UNASSIGNED)
-    , m_cluster(UNDEFINED)
-    , m_distance(0, __DBL_MAX__)
+    , m_cluster(UNLABELED)
+    , m_distance(nullptr, __DBL_MAX__)
 {
-    m_rgb = std::vector<float>(3);
+    m_clusterColor = " 0 0 0";
+    m_rgb = { 0, 0, 0 };
 }
 
-void Point::setRgb(const std::vector<float>& rgb)
+void Point::setColor(const std::vector<float>& rgb)
 {
     for (int i = 0; i < rgb.size(); i++) {
         m_rgb[i] = rgb[i];
     }
 }
 
-bool Point::undefined() const
+float Point::distance(const Point& other) const
 {
-    return (m_cluster == UNDEFINED || m_cluster == NOISE);
-}
-
-float Point::distance(Point point) const
-{
-    float x = m_x - point.m_x;
-    float y = m_y - point.m_y;
-    float z = m_z - point.m_z;
+    float x = m_xyz[0] - other.m_xyz[0];
+    float y = m_xyz[1] - other.m_xyz[1];
+    float z = m_xyz[2] - other.m_xyz[2];
     return (float)std::sqrt((x * x) + (y * y) + (z * z));
 }
 
@@ -69,24 +57,31 @@ Point Point::centroid(std::vector<Point>& points)
     Eigen::MatrixXd pointsMat(points.size(), R);
 
     int row = 0;
-    for (auto point : points) {
-        pointsMat(row, xCol) = point.m_x;
-        pointsMat(row, yCol) = point.m_y;
-        pointsMat(row, zCol) = point.m_z;
+    for (const auto& point : points) {
+        pointsMat(row, xCol) = point.m_xyz[0];
+        pointsMat(row, yCol) = point.m_xyz[1];
+        pointsMat(row, zCol) = point.m_xyz[2];
         row++;
     }
     return Point { (float)pointsMat.col(xCol).mean(),
         (float)pointsMat.col(yCol).mean(), (float)pointsMat.col(zCol).mean() };
 }
 
+bool Point::unlabeled() const
+{
+    return (m_cluster == UNLABELED || m_cluster == NOISE);
+}
+
 bool Point::operator==(const Point& rhs) const
 {
-    return (m_x == rhs.m_x && m_y == rhs.m_y && m_z == rhs.m_z);
+    return (m_xyz[0] == rhs.m_xyz[0] && m_xyz[1] == rhs.m_xyz[1]
+        && m_xyz[2] == rhs.m_xyz[2]);
 }
 
 bool Point::operator!=(const Point& rhs) const
 {
-    return (m_x != rhs.m_x || m_y != rhs.m_y || m_z != rhs.m_z);
+    return (m_xyz[0] != rhs.m_xyz[0] || m_xyz[1] != rhs.m_xyz[1]
+        || m_xyz[2] != rhs.m_xyz[2]);
 }
 
 bool Point::operator<(const Point& rhs) const
@@ -96,12 +91,12 @@ bool Point::operator<(const Point& rhs) const
 
 std::ostream& operator<<(std::ostream& stream, const Point& point)
 {
-    stream << point.m_x << " " << point.m_y << " " << point.m_z;
+    stream << point.m_xyz[0] << " " << point.m_xyz[1] << " " << point.m_xyz[2];
     return stream;
 }
 
 std::istream& operator>>(std::istream& stream, Point& point)
 {
-    stream >> point.m_x >> point.m_y >> point.m_z;
+    stream >> point.m_xyz[0] >> point.m_xyz[1] >> point.m_xyz[2];
     return stream;
 }
