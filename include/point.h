@@ -16,15 +16,17 @@ extern const int UNLABELED;
 class Point {
 
 public:
-    int m_cluster;                       // <- point cluster
-    std::string m_clusterColor;          // <- cluster color (from clustering)
-    std::array<int, 3> m_rgb {};         // <- point color (from rgb image)
-    std::array<float, 3> m_xyz {};       // <- point coordinates
-    std::pair<Point*, float> m_distance; // <- Euclidean distance to Point*
+    int m_cluster;                         // <- cluster label
+    std::string m_crgb;                    // <- cluster color
+    std::array<uint8_t, 4> m_clustBgra {}; // <- cluster image (cv Frame format)
+    std::array<uint8_t, 3> m_rgb {};       // <- image (openGL format)
+    std::array<uint8_t, 4> m_bgra {};      // <- image (cv Frame format)
+    std::array<int16_t, 3> m_xyz {};       // <- coordinates (openGL format)
+    std::pair<Point*, float> m_distance;   // <- Euclidean distance to a Point*
 
     /** 3D point constructors */
     Point();
-    Point(float x, float y, float z);
+    Point(int16_t x, int16_t y, int16_t z);
 
     /**
      * unlabeled
@@ -43,13 +45,12 @@ public:
     static void sort(std::vector<Point>& points);
 
     /**
-     * setColor
+     * rgb
      *   Set the color corresponding color for each xyz point.
      *
      *  @param rgb
      *    Color.
      */
-    void setColor(const std::vector<float>& rgb);
 
     /**
      * centroid
@@ -73,7 +74,7 @@ public:
      *  @retval
      *    Euclidean distance to other point.
      */
-    [[nodiscard]] float distance(const Point& other) const;
+    [[nodiscard]] int16_t distance(const Point& other) const;
 
     /** operator overrides */
     bool operator<(const Point& rhs) const;
@@ -81,5 +82,9 @@ public:
     bool operator==(const Point& rhs) const;
     friend std::ostream& operator<<(std::ostream& t_stream, const Point& point);
     friend std::istream& operator>>(std::istream& t_stream, Point& point);
+
+    void setPoint(const int16_t xyz[3]);
+    void setPixel_GL(const uint8_t rgb[3]);
+    void setPixel_CV(const uint8_t bgra[4]);
 };
 #endif /* POINT_H */
