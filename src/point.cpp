@@ -3,7 +3,6 @@
 
 #include "point.h"
 
-extern const int NOISE = -2;
 extern const int UNLABELED = -1;
 
 extern const int R = 3;
@@ -83,11 +82,6 @@ Point Point::centroid(std::vector<Point>& points)
     }
     return Point { (int16_t)(xSum / points.size()),
         (int16_t)(ySum / points.size()), (int16_t)(zSum / points.size()) };
-}
-
-bool Point::unlabeled() const
-{
-    return (m_cluster == UNLABELED || m_cluster == NOISE);
 }
 
 bool Point::operator==(const Point& rhs) const
