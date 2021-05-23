@@ -16,24 +16,17 @@ extern const int UNLABELED;
 class Point {
 
 public:
-    int m_cluster;                         // <- cluster label
-    std::string m_crgb;                    // <- cluster color
-    std::array<uint8_t, 4> m_clustBgra {}; // <- cluster image (cv Frame format)
-    std::array<uint8_t, 3> m_rgb {};       // <- image (openGL format)
-    std::array<uint8_t, 4> m_bgra {};      // <- image (cv Frame format)
-    std::array<int16_t, 3> m_xyz {};       // <- coordinates (openGL format)
-    std::pair<Point*, float> m_distance;   // <- Euclidean distance to a Point*
+    int m_id {};
+    int m_cluster;                       // <- cluster label
+    std::string m_crgb;                  // <- cluster color
+    std::array<uint8_t, 3> m_rgb {};     // <- image (openGL format)
+    std::array<uint8_t, 4> m_bgra {};    // <- image (cv Frame format)
+    std::array<int16_t, 3> m_xyz {};     // <- coordinates (openGL format)
+    std::pair<Point*, float> m_distance; // <- Euclidean distance to a Point*
 
     /** 3D point constructors */
     Point();
     Point(int16_t x, int16_t y, int16_t z);
-
-    /**
-     * unlabeled
-     *   Checks if 'this' point is classified as noise or has unlabelled
-     * cluster.
-     */
-    [[nodiscard]] bool unlabeled() const;
 
     /**
      * sort
