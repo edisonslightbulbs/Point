@@ -5,11 +5,6 @@
 
 extern const int UNLABELED = -1;
 
-extern const int R = 3;
-extern const int xCol = 0;
-extern const int yCol = 1;
-extern const int zCol = 2;
-
 bool compare(const Point& point, const Point& other)
 {
     return point.m_distance.second < other.m_distance.second;
@@ -26,7 +21,7 @@ Point::Point()
     , m_distance(nullptr, __DBL_MAX__)
 {
     m_crgb = " 0 0 0";
-    m_rgb = { 0, 0, 0 };
+    // m_rgb = { 0, 0, 0 };
 }
 
 Point::Point(int16_t x, int16_t y, int16_t z)
@@ -36,7 +31,7 @@ Point::Point(int16_t x, int16_t y, int16_t z)
     , m_distance(nullptr, __DBL_MAX__)
 {
     m_crgb = " 0 0 0";
-    m_rgb = { 0, 0, 0 };
+    // m_rgb = { 0, 0, 0 };
 }
 
 void Point::setPoint(const int16_t xyz[3])
@@ -46,11 +41,12 @@ void Point::setPoint(const int16_t xyz[3])
     m_xyz[2] = xyz[2];
 }
 
-void Point::setPixel_GL(const uint8_t rgb[3])
+void Point::setPixel_GL(const uint8_t rgba[4])
 {
-    m_rgb[0] = rgb[0];
-    m_rgb[1] = rgb[1];
-    m_rgb[2] = rgb[2];
+    m_rgba[0] = rgba[0];
+    m_rgba[1] = rgba[1];
+    m_rgba[2] = rgba[2];
+    m_rgba[3] = rgba[3];
 }
 
 void Point::setPixel_CV(const uint8_t bgra[4])
