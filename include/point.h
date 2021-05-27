@@ -5,12 +5,6 @@
 #include <iostream>
 #include <vector>
 
-extern const int R;    // <- dimensional space
-extern const int xCol; // x column
-extern const int yCol; // y column
-extern const int zCol; // z column
-
-extern const int NOISE;
 extern const int UNLABELED;
 
 class Point {
@@ -19,7 +13,7 @@ public:
     int m_id {};
     int m_cluster;                       // <- cluster label
     std::string m_crgb;                  // <- cluster color
-    std::array<uint8_t, 3> m_rgb {};     // <- image (openGL format)
+    std::array<uint8_t, 4> m_rgba {};    // <- image (openGL format)
     std::array<uint8_t, 4> m_bgra {};    // <- image (cv Frame format)
     std::array<int16_t, 3> m_xyz {};     // <- coordinates (openGL format)
     std::pair<Point*, float> m_distance; // <- Euclidean distance to a Point*
@@ -77,7 +71,7 @@ public:
     friend std::istream& operator>>(std::istream& t_stream, Point& point);
 
     void setPoint(const int16_t xyz[3]);
-    void setPixel_GL(const uint8_t rgb[3]);
+    void setPixel_GL(const uint8_t rgba[4]);
     void setPixel_CV(const uint8_t bgra[4]);
 };
 #endif /* POINT_H */
