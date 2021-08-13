@@ -41,7 +41,7 @@ void Point::setPoint(const int16_t xyz[3])
     m_xyz[2] = xyz[2];
 }
 
-void Point::setPixel_RGBA(const uint8_t rgba[4])
+void Point::setRGBA(const uint8_t* rgba)
 {
     m_rgba[0] = rgba[0];
     m_rgba[1] = rgba[1];
@@ -49,7 +49,7 @@ void Point::setPixel_RGBA(const uint8_t rgba[4])
     m_rgba[3] = rgba[3];
 }
 
-void Point::setPixel_BGRA(const uint8_t bgra[4])
+void Point::setBGRA(const uint8_t* bgra)
 {
     m_bgra[0] = bgra[0];
     m_bgra[1] = bgra[1];
