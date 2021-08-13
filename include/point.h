@@ -71,7 +71,7 @@ public:
     friend std::istream& operator>>(std::istream& t_stream, Point& point);
 
     void setPoint(const int16_t xyz[3]);
-    void setPixel_RGBA(const uint8_t rgba[4]);
-    void setPixel_BGRA(const uint8_t bgra[4]);
+    void setRGBA(const uint8_t* rgba);
+    void setBGRA(const uint8_t* bgra);
 };
 #endif /* POINT_H */
